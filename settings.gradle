@@ -1,0 +1,11 @@
+include 'calculator',
+        'league-orchestrator',
+        'elo-ratings',
+        'games',
+        'leagues',
+        'scores',
+        'new-game-orchestrator',
+        'players',
+        'server',
+        'shared',
+        'shared-test'

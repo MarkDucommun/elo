@@ -1,0 +1,11 @@
+jar {
+	baseName = 'leagues'
+	version = '0.0.1-SNAPSHOT'
+}
+
+dependencies {
+	compile project(':shared')
+	compile 'org.springframework.boot:spring-boot-starter-data-jpa'
+	runtime 'com.h2database:h2'
+	testCompile project(':shared-test')
+}

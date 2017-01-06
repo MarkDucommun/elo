@@ -1,0 +1,14 @@
+jar {
+	baseName = 'server'
+	version = '0.0.1-SNAPSHOT'
+}
+
+dependencies {
+	compile('org.springframework.boot:spring-boot-starter-thymeleaf')
+	compile('org.springframework.boot:spring-boot-starter-web')
+	compile('com.fasterxml.jackson.module:jackson-module-kotlin')
+	compile project(':players')
+	compile project(':leagues')
+	compile project(':new-game-orchestrator')
+	compile project(':league-orchestrator')
+}

@@ -1,0 +1,9 @@
+jar {
+	baseName = 'command-line-client'
+	version = '0.0.1-SNAPSHOT'
+}
+
+dependencies {
+	compile project(':new-game-orchestrator')
+	compile('com.fasterxml.jackson.dataformat:jackson-dataformat-csv:2.7.0')
+}

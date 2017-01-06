@@ -1,0 +1,13 @@
+jar {
+	baseName = 'new-game-orchestrator'
+	version = '0.0.1-SNAPSHOT'
+}
+
+dependencies {
+	compile project(':calculator')
+	compile project(':elo-ratings')
+	compile project(':games')
+	compile project(':leagues')
+	compile project(':scores')
+	compile project(':players')
+}

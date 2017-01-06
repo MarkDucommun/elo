@@ -1,0 +1,14 @@
+jar {
+    baseName = 'shared-test'
+    version = '0.0.1-SNAPSHOT'
+}
+
+dependencies {
+    compile project(':shared')
+
+    compile 'org.springframework.boot:spring-boot-starter-web'
+    compile 'com.fasterxml.jackson.module:jackson-module-kotlin'
+    compile('org.springframework.boot:spring-boot-starter-test')
+    compile('com.nhaarman:mockito-kotlin:1.0.0')
+    compile('net.wuerl.kotlin:assertj-core-kotlin:0.1.3')
+}

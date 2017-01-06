@@ -1,0 +1,11 @@
+<component name="libraryTable">
+  <library name="Gradle: com.fasterxml.jackson.dataformat:jackson-dataformat-csv:2.7.0">
+    <CLASSES>
+      <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.fasterxml.jackson.dataformat/jackson-dataformat-csv/2.7.0/28adc7ccaececbbff99d2997fe8ba9061cc77037/jackson-dataformat-csv-2.7.0.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES>
+      <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.fasterxml.jackson.dataformat/jackson-dataformat-csv/2.7.0/86ddf5263bf06c672f609f7be9997fe11d1c69be/jackson-dataformat-csv-2.7.0-sources.jar!/" />
+    </SOURCES>
+  </library>
+</component>

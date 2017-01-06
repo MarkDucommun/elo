@@ -1,0 +1,71 @@
+- [x] Create Player with
+    - name
+- [x] Create League with 
+    - name
+    - description
+    - k-factor
+- [x] Look-up Player by name
+- [x] Look-up League by name
+- [x] Create Match with
+    - League id
+    - winning Player id
+    - losing Player id
+    - winning score
+    - losing score
+- [x] Create ELO Rating with
+    - Player id
+    - League id?
+    - Match id
+    - version
+    - value
+    - opponent ELO version
+- [x] Get current ELO for Player for a particular League
+- [x] Create a Game
+- [x] Abstract translation delegates
+- [x] Match has a Game id
+- [x] Match does not have a League id
+- [x] League has default ELO value
+- [x] Process a new game
+    - [x] Function input:
+        - league name
+        - array of:
+            - player name
+            - player score
+    - [x] Find the League id
+    - [x] Create a new Game
+    - [x] Find each Player's id
+    - [x] Find each Player's starting ELO
+    - [x] Create a Match for each combination of Players in the Game
+        - for Players A, B, C
+        - would create Matches: 
+            - A:B
+            - A:C
+            - B:C
+    - [x] Create an intermediate ELO Rating for each Player for each Match
+    - [x] Create an aggregate ELO Rating for each Player for the Game
+        - Average the value of the intermediate ELOs for each Match
+    - [x] Return output of:
+        - League name:
+        - array of:
+            - Player name
+            - Player score
+            - Player new rating
+            - Player rating change
+- [x] Match becomes Score, only records details of one Player
+- [x] League Loader runs on startup
+- [x] ELO rating has a Score id
+- [ ] Find League by id
+- [ ] ELO Rating does not have a League id (maybe later)
+- [x] Find all ids of all Players in a League
+- [x] Summarize League
+    - display all Players and their current ELO
+- [ ] Find Player by id
+- [ ] Find Match by id
+- [ ] Validate existence of foreign keys for Score creation
+    - League id
+    - Player id
+- [ ] Validate existence of foreign keys for ELO creation
+    - Player id
+    - League id
+    - Score id
+- [ ] Ensure all database foreign keys are indexed
