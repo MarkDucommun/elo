@@ -42,7 +42,7 @@ class GameMakerThingTest {
     }
 
     @Test
-    fun `should calculate a new ELO rating for Player against each other Player`() {
+    fun `should calculate a new ELO rating for the Player against each opponent`() {
 
         val mockRatingCalculator: RatingCalculator = mock()
 

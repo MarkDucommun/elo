@@ -20,7 +20,7 @@ class AveragedEloGameOrchestrator(
         private val leagueFinder: LeagueFinder,
         private val playerBuilder: PlayerBuilder,
         private val gameCreator: Creator<Game>,
-        private val gameMakerThing: GameMakerThing
+        private val gameMakerThing: GameMakerThingInt
 ) : GameOrchestrator {
 
     override fun create(unsavedGame: UnsavedGame): SavedGame {
@@ -30,6 +30,7 @@ class AveragedEloGameOrchestrator(
 
         val playersWithScores = unsavedGame.scores.map {
 
+            // TODO is this a concept that is not represented yet?
             val playerWithElo = playerBuilder.getPlayer(playerName = it.playerName, league = league)
 
             PlayerWithScoreAndElo(player = playerWithElo.player, elo = playerWithElo.elo, score = it.score)

@@ -4,15 +4,19 @@ import com.nhaarman.mockito_kotlin.any
 import com.nhaarman.mockito_kotlin.doReturn
 import com.nhaarman.mockito_kotlin.mock
 import com.nhaarman.mockito_kotlin.verify
-import io.ducommun.calculator.Calculator
-import io.ducommun.calculator.CalculatorFactory
+import com.nhaarman.mockito_kotlin.whenever
 import io.ducommun.elo.eloratings.EloRating
 import io.ducommun.elo.games.Game
 import io.ducommun.elo.leagues.League
 import io.ducommun.elo.leagues.LeagueFinder
-import io.ducommun.elo.new_game_orchestrator.domain.*
+import io.ducommun.elo.new_game_orchestrator.domain.GameWithLeague
+import io.ducommun.elo.new_game_orchestrator.domain.NamedPlayerScore
+import io.ducommun.elo.new_game_orchestrator.domain.PlayerRating
+import io.ducommun.elo.new_game_orchestrator.domain.PlayerWithElo
+import io.ducommun.elo.new_game_orchestrator.domain.PlayerWithScoreAndElo
+import io.ducommun.elo.new_game_orchestrator.domain.SavedGame
+import io.ducommun.elo.new_game_orchestrator.domain.UnsavedGame
 import io.ducommun.elo.players.Player
-import io.ducommun.elo.scores.Score
 import io.ducommun.elo.shared.Creator
 import org.assertj.core.api.KotlinAssertions.assertThat
 import org.junit.Test
@@ -78,7 +82,7 @@ class AveragedEloGameOrchestratorTest {
         val tim = defaultPlayerScore.copy(score = 5.0)
         val joe = defaultPlayerScore.copy(score = 2.0)
 
-        val mockGameMakerThing: GameMakerThing = mock()
+        val mockGameMakerThing: GameMakerThingInt = mock()
 
         val subject = createOrchestrator(
                 playerBuilder = createMockPlayerBuilder(listOf(
@@ -128,10 +132,13 @@ class AveragedEloGameOrchestratorTest {
         val two = defaultPlayerRating.copy(score = 5.0)
         val three = defaultPlayerRating.copy(score = 2.0)
 
+        val mockGameMakerThing: GameMakerThingInt = mock {
+            on { processNewGame(any(), any(), any()) } doReturn listOf(one, two, three)
+        }
+
         val subject = createOrchestrator(
-                gameMakerThing = mock {
-                    on { processNewGame(any(), any(), any()) } doReturn listOf(one, two, three)
-                }
+                leagueFinder = createMockLeagueFinder(leagueName = "TestLeague"),
+                gameMakerThing = mockGameMakerThing
         )
 
         val returnedSavedGame = subject.create(buildUnsavedGame(
@@ -175,16 +182,6 @@ class AveragedEloGameOrchestratorTest {
         }
     }
 
-    private fun createMockScoreCreator(): Creator<Score> = mock {
-        var idCounter: Long = 0
-        on { create(any()) }.thenAnswer { (it.arguments[0] as Score).copy(id = idCounter++) }
-    }
-
-    private fun createMockCalculatorFactory(): CalculatorFactory = mock {
-        val calculator = mock<Calculator> { on { newRating() } doReturn 10 }
-        on { build(any(), any(), any(), any(), any()) } doReturn calculator
-    }
-
     private fun createMockPlayerBuilder(
             players: List<PlayerWithElo> = listOf(PlayerWithElo(player = defaultPlayer, elo = defaultElo))
     ): PlayerBuilder = mock {
@@ -194,11 +191,8 @@ class AveragedEloGameOrchestratorTest {
     private fun createOrchestrator(
             leagueFinder: LeagueFinder = createMockLeagueFinder(),
             gameCreator: Creator<Game> = createMockGameCreator(),
-            scoreCreator: Creator<Score> = createMockScoreCreator(),
-            eloRatingCreator: Creator<EloRating> = mock(),
-            calculatorFactory: CalculatorFactory = createMockCalculatorFactory(),
             playerBuilder: PlayerBuilder = createMockPlayerBuilder(),
-            gameMakerThing: GameMakerThing = mock()
+            gameMakerThing: GameMakerThingInt = mock()
     ) = AveragedEloGameOrchestrator(
             leagueFinder = leagueFinder,
             playerBuilder = playerBuilder,

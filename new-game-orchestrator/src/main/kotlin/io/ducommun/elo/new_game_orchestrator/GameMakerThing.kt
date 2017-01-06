@@ -4,18 +4,19 @@ import io.ducommun.elo.eloratings.EloRating
 import io.ducommun.elo.new_game_orchestrator.domain.GameWithLeague
 import io.ducommun.elo.new_game_orchestrator.domain.PlayerRating
 import io.ducommun.elo.new_game_orchestrator.domain.PlayerWithScoreAndElo
+import io.ducommun.elo.players.Player
 import io.ducommun.elo.scores.Score
 import io.ducommun.elo.shared.Creator
 import org.springframework.stereotype.Service
 
 @Service
-open class GameMakerThing(
+class GameMakerThing (
     private val scoreCreator: Creator<Score>,
     private val eloRatingCreator: Creator<EloRating>,
     private val ratingCalculator: RatingCalculator
-) {
+) : GameMakerThingInt {
 
-    open fun processNewGame(
+    override fun processNewGame(
             player: PlayerWithScoreAndElo,
             opponents: List<PlayerWithScoreAndElo>,
             game: GameWithLeague
@@ -50,4 +51,13 @@ open class GameMakerThing(
                 ratingChange = newRating - player.rating
         )
     }
+}
+
+interface GameMakerThingInt {
+
+    fun processNewGame(
+            player: PlayerWithScoreAndElo,
+            opponents : List<PlayerWithScoreAndElo>,
+            game : GameWithLeague
+    ): PlayerRating
 }

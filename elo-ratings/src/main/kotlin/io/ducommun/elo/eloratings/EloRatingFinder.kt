@@ -24,18 +24,17 @@ open class EloRatingFinder(
             eloRatingRepository
                     .findByLeagueId(leagueId)
                     .groupBy({ it.playerId }, { it })
-                    .map { (id, elos) ->
-                        elos
+                    .map { it ->
+                        it.value
                                 .sortedByDescending { it.version }
                                 .first()
                                 .toDomain()
                     }
 
-    open fun findEloRatingsForPlayerInLeague(playerId: Long, leagueId: Long): List<EloRating> {
-        return eloRatingRepository
-                .findByPlayerIdAndLeagueId(playerId, leagueId)
-                .map { it.toDomain() }
-    }
+    open fun findEloRatingsForPlayerInLeague(playerId: Long, leagueId: Long): List<EloRating> =
+            eloRatingRepository
+                    .findByPlayerIdAndLeagueId(playerId, leagueId)
+                    .map { it.toDomain() }
 
     private fun defaultEloRating(leagueId: Long, playerId: Long): EloRating {
         return EloRating(

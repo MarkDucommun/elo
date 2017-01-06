@@ -1,0 +1,5 @@
+pairs:
+  # <initials>: <First Name> <Last Name>[; <email-id>]
+  aj: Anna Jung
+  md: Mark Ducommun
+global: false

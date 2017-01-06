@@ -25,8 +25,8 @@ class StandardPlayerDescriber(
 
         val points = addLeagueDefault(eloRatings)
 
-        val eloDescriptions = eloRatings.zip(points).map { (eloRating, previousEloValue) ->
-            eloRating.toEloRatingDescription(previousEloValue)
+        val eloDescriptions = eloRatings.zip(points).map {
+            it.first.toEloRatingDescription(it.second)
         }
 
         return PlayerDescription(

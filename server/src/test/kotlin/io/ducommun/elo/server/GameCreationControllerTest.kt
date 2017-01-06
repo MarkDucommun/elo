@@ -4,6 +4,8 @@ import com.nhaarman.mockito_kotlin.doReturn
 import com.nhaarman.mockito_kotlin.mock
 import com.nhaarman.mockito_kotlin.verify
 import io.ducommun.elo.new_game_orchestrator.*
+import io.ducommun.elo.new_game_orchestrator.domain.NamedPlayerScore
+import io.ducommun.elo.new_game_orchestrator.domain.PlayerRating
 import io.ducommun.elo.new_game_orchestrator.domain.SavedGame
 import io.ducommun.elo.new_game_orchestrator.domain.UnsavedGame
 import org.junit.Test

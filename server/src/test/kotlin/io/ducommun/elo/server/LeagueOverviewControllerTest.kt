@@ -17,9 +17,9 @@ import org.springframework.test.web.servlet.setup.MockMvcBuilders
 class LeagueOverviewControllerTest {
 
     @Test
-    fun `passes the league name to be described to service`() {
+    fun `passes the league name to be described to service with a default minRounds value of 0`() {
 
-        val mockLeagueDescriber = mock<LeagueDescriber>()
+        val mockLeagueDescriber: LeagueDescriber = mock()
 
         val subject = LeagueOverviewController(mockLeagueDescriber)
 
@@ -29,7 +29,23 @@ class LeagueOverviewControllerTest {
                 .perform(get("/leagues/tree"))
                 .andExpect(status().isOk)
 
-        verify(mockLeagueDescriber).describe("tree")
+        verify(mockLeagueDescriber).describe("tree", 0)
+    }
+
+    @Test
+    fun `should pass in the minRounds parameter if present`() {
+
+        val mockLeagueDescriber: LeagueDescriber = mock()
+
+        val subject = LeagueOverviewController(mockLeagueDescriber)
+
+        val mockMvc = MockMvcBuilders.standaloneSetup(subject).build()
+
+        mockMvc
+                .perform(get("/leagues/tree").param("minRounds", "10"))
+                .andExpect(status().isOk)
+
+        verify(mockLeagueDescriber).describe("tree", minRounds = 10)
     }
 
     @Test
@@ -45,7 +61,7 @@ class LeagueOverviewControllerTest {
         val contentString = ObjectMapper().writeValueAsString(leagueOverview)
 
         val subject = LeagueOverviewController(mock {
-            on { describe(any()) } doReturn leagueOverview
+            on { describe(any(), any()) } doReturn leagueOverview
         })
 
         val mockMvc = MockMvcBuilders.standaloneSetup(subject).build()

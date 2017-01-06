@@ -14,8 +14,17 @@ class LeagueOverviewController(
 ) {
 
     @GetMapping("/leagues/{name}")
-    fun describe(@PathVariable name: String) : ResponseEntity<LeagueOverview> {
+    fun describe(@PathVariable name: String): ResponseEntity<LeagueOverview> {
 
-        return ResponseEntity.ok().body(leagueDescriber.describe(name))
+        return ResponseEntity.ok().body(leagueDescriber.describe(name, 0))
+    }
+
+    @GetMapping("/leagues/{name}", params = arrayOf("minRounds"))
+    fun describeWithRounds(
+            @PathVariable name: String,
+            @RequestParam minRounds: Int
+    ): ResponseEntity<LeagueOverview> {
+
+        return ResponseEntity.ok().body(leagueDescriber.describe(name, minRounds))
     }
 }
